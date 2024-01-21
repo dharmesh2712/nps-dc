@@ -1,0 +1,41 @@
+<div class="common-container">
+  <div class="w-100 d-flex just-space-bet">
+    <div class="w-50">
+      <app-search class="w-100" (searchEvent)="searchEvent($event)"></app-search>
+    </div>
+    <button class="ml-20 common-button" mat-flat-button color="primary" (click)="createCategoryTemplateOpen(createCategoryTemplate)">
+      <mat-icon class="mr-5">add_circle</mat-icon> Create Category
+    </button>
+  </div>
+  <ng-container *ngIf="!isLoading">
+    <app-table
+      [data]="categoryList"
+      [table]="table"
+      (onAction)="actonPerform($event, createCategoryTemplate)"
+      [isNotFireEditWithNavigatipn]="true"
+    ></app-table>
+    <div *ngIf="categoryList.length" class="d-flex">
+      <app-pagination
+        class="w-100"
+        [pagination]="pagination"
+        [paginationConfig]="paginationConfig"
+        (changePagination)="changePagination($event)"
+      >
+      </app-pagination>
+    </div>
+  </ng-container>
+  <div *ngIf="isLoading" class="d-flex align-items-center just-center w-100" id="loaderScreen">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #createCategoryTemplate>
+  <div class="w-100 mr-10">
+    <label class="common-title d-block pt-10">Name</label>
+    <mat-form-field appearance="fill" class="mt-5 input__label--disabled input__bordered w-100">
+      <input matInput autocomplete="off" type="text" [(ngModel)]="categoryName" placeholder="Enter Survey Name" />
+    </mat-form-field>
+  </div>
+  <button mat-flat-button color="primary" class="common-button float-right mt-10" (click)="createCategory()">
+    {{ isUpdateCategory ? "Edit" : "Create" }}</button
+  >
+</ng-template>

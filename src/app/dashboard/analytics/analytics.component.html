@@ -1,0 +1,65 @@
+<div class="common-container">
+  <div class="w-100 graph-container">
+    <app-graph-header
+      [title]="'NPS Analyitcs'"
+      [categoryList]="npsMainAnalytics.categoryList"
+      [surveyList]="npsMainAnalytics.surveyList"
+      [npsAnalyticsData]="npsMainAnalytics"
+      [isCategory]="true"
+      [isSurvey]="true"
+      (categoryChangedEmitter)="categoryChange($event, 'npsAnalytics')"
+      (dateChangedEmitter)="dateChange($event, 'npsAnalytics')"
+      (surveyChangedEmitter)="surveyChange($event, 'npsAnalytics')"
+    ></app-graph-header>
+    <app-nps-analytics
+      *ngIf="!isnpsAanalytics"
+      [npsAnalyticsConfig]="npsAnalytics"
+    ></app-nps-analytics>
+  </div>
+  <div class="w-100 graph-container">
+    <app-graph-header
+      [title]="'NPS Overtime'"
+      [categoryList]="npsOverTimeAnalytics.categoryList"
+      [surveyList]="npsOverTimeAnalytics.surveyList"
+      [npsAnalyticsData]="npsOverTimeAnalytics"
+      [isCategory]="true"
+      [isSurvey]="true"
+      (categoryChangedEmitter)="categoryChange($event, 'npsOverTime')"
+      (dateChangedEmitter)="dateChange($event, 'npsOverTime')"
+      (surveyChangedEmitter)="surveyChange($event, 'npsOverTime')"
+    ></app-graph-header>
+    <app-nps-overtime
+      *ngIf="!isNpsOverTimeAnalytics"
+      [npsOverTimeAnalyticsData]="npsOverTimeAnalyticsData"
+    ></app-nps-overtime>
+  </div>
+  <div class="w-100 graph-container">
+    <app-graph-header [isDatePicker]="false"></app-graph-header>
+    <div class="d-flex">
+      <div class="w-100 graph-container">
+        <app-graph-header
+          [title]="'Top 5 Category'"
+          (dateChangedEmitter)="dateChange($event, 'topCategory')"
+          [npsAnalyticsData]="npsTopFiveCategorisAnalytics"
+        ></app-graph-header>
+        <app-top-category
+          *ngIf="!isTopFiveCategorisAnalytics"
+          [npsTopFiveCategorisAnalyticsData]="npsTopFiveCategorisAnalyticsData"
+        ></app-top-category>
+      </div>
+      <div class="w-100 graph-container">
+        <app-graph-header
+          [title]="'Responded Completion Rate'"
+          [isRegion]="true"
+          (dateChangedEmitter)="dateChange($event, 'respondRate')"
+          (regionChangedEmitter)="regionChanged($event, 'respondRate')"
+          [npsAnalyticsData]="npsRespondedCompletionRate"
+        ></app-graph-header>
+        <app-respond-rate
+          *ngIf="!isRespondedCompletionRate"
+          [npsRespondedCompletionRateData]="npsRespondedCompletionRateData"
+        ></app-respond-rate>
+      </div>
+    </div>
+  </div>
+</div>

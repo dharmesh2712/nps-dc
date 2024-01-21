@@ -1,0 +1,81 @@
+@import "../../../styles/color-palette.scss";
+
+.container {
+  width: auto !important;
+}
+
+input {
+  font-size: 14px;
+}
+
+input:disabled {
+  cursor: not-allowed;
+  background-color: $grey-main-40;
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.new-password {
+  display: flex;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.reset-button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.profile-email {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  width: 150px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.85);
+  line-height: 1;
+  font-weight: 500;
+  margin-bottom: 0px;
+
+  p {
+    margin: 0 !important;
+    color: $danger-color;
+  }
+
+  input {
+    width: 50%;
+  }
+}
+
+.reset-form__label {
+  width: 150px;
+  padding: 10px 10px 10px 0px;
+}
+.header--initial {
+  height: 38px;
+  width: 38px;
+  text-transform: capitalize;
+  border-radius: 50%;
+  border: 1px solid $primary-color;
+  background-color: $background-primary-color;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $primary-color;
+
+  //   img {
+  //     height: 100%;
+  //     width: 100%;
+  //     object-fit: contain;
+  //     border-radius: 50%;
+  //   }
+}
+.profile-main {
+  .title {
+    color: $primary-color;
+    font-size: 18px;
+  }
+}
+.grey-hr {
+  border-top: 1px solid $hr-color;
+}

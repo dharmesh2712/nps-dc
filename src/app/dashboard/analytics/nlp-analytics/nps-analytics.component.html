@@ -1,0 +1,31 @@
+<div class="graph-container mt-20">
+  <div class="d-flex flex-wrap align-items-center just-space-around w-100">
+    <div *ngFor="let score of typesAnalytics" class="analytics-card d-flex align-center just-space-bet">
+      <div class="statistics ml-20">
+        <p>{{ score.count ? score.count : 0 }}</p>
+        <p>{{ score.name }}</p>
+      </div>
+      <div class="div-icon pt-5 pl-5 pr-5 ml-20">
+        <mat-icon color="primary">account_circle</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex just-space-around">
+  <ng-container *ngFor="let analytics of npsScoreAnalytics">
+    <div class="graph-container mt-20">
+      <canvas
+        id="myChart"
+        baseChart
+        [labels]="analytics.doughnutChartLabels"
+        [datasets]="analytics.doughnutChartDatasets"
+        [options]="analytics.doughnutChartOptions"
+        [legend]="true"
+        [type]="'doughnut'"
+        [plugins]="pieChartPlugins"
+      >
+      </canvas>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,158 @@
+@import "../../../../styles/color-palette.scss";
+
+.container {
+  height: calc(100vh - 80px);
+
+  .navigation {
+    height: 40px;
+  }
+
+  .box-container {
+    height: 95%;
+  }
+
+  .promoter {
+    background-color: green;
+  }
+  .detractor {
+    background-color: red;
+  }
+  .passive {
+    background-color: gray;
+    color: black;
+  }
+
+  .Recommendation-Type {
+    border-radius: 50px;
+    color: white;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    // padding-top: 2px;
+  }
+}
+// ...............................................contact details.....................................
+
+.customer_contact {
+  background: white;
+  border-radius: 7px;
+}
+.customer_name {
+  font-size: 25px;
+  font-weight: 900;
+  color: $font-color-dark;
+  margin: 5px !important;
+}
+.ph_no {
+  background: $background-primary-color;
+  border-radius: 7px;
+}
+.call_number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 0.7rem;
+  color: $font-color-dark;
+}
+// ............................................icon ................................................
+.contact_icon {
+  font-size: 70px;
+  height: fit-content;
+  width: fit-content;
+  color: $title-color;
+}
+.call_icon {
+  height: fit-content;
+  width: fit-content;
+  color: $title-color;
+  font-size: 25px;
+  padding: 0.7rem;
+}
+.rotate-icon {
+  transform: rotate(180deg);
+}
+//  ..................................................customer survey......................................................
+.customer_survey {
+  background: white;
+  min-height: 50rem;
+  border-radius: 7px;
+  max-height: 95%;
+  overflow-y: scroll;
+}
+
+.expansion_panel {
+  background-color: $background-primary-color;
+  padding-inline: 15px;
+  border-radius: 7px;
+}
+.expansion_panel_header {
+  color: $font-color-dark;
+  font-weight: 700;
+  font-size: medium;
+  background-color: $background-primary-color;
+  border-radius: 20px;
+  margin-inline: 15px;
+
+  padding: 10px 10px 10px 0px;
+}
+.panel_desc {
+  background-color: white;
+  padding: 15px;
+  border-radius: 7px;
+  p {
+    white-space: break-spaces;
+  }
+}
+.panel_desc_detail {
+  font-size: smaller;
+  font-weight: 500;
+  white-space: break-spaces;
+  color: $font-color-dark;
+}
+.mat-expansion-panel-header {
+  flex-direction: row-reverse;
+}
+//..................................................... steper overwriting..................................................
+
+::ng-deep {
+  .mat-vertical-content-container {
+    display: none !important;
+  }
+  // ................................................stepper icon ............................................
+  .mat-step-icon-content {
+    display: none !important;
+  }
+  .mat-vertical-stepper-header .mat-step-icon::before {
+    display: none !important;
+    content: "P" !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    transform: translate(-50%, -50%);
+  } //custom content create
+  .mat-step-header .mat-step-icon {
+    display: none !important;
+  }
+  // ..........................................stepper header .............................................
+  .mat-step-header:hover {
+    background-color: white !important;
+  } // enable hover
+
+  .mat-step-header .mat-step-label.mat-step-label-active {
+    margin-inline: 10px;
+    width: 100% !important;
+  }
+
+  .mat-vertical-stepper-header {
+    height: auto !important;
+  } //header hight
+  .mat-vertical-stepper-header {
+    align-items: baseline !important;
+  }
+  .mat-vertical-content-container {
+    height: 0;
+  }
+}

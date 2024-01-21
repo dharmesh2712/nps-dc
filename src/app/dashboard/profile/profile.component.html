@@ -1,0 +1,146 @@
+<ng-container *ngIf="!isLoading">
+  <div class="common-container">
+    <div class="common-box">
+      <form [formGroup]="profileSettingForm">
+        <div class="profile-main">
+          <div class="title">Personal Info.</div>
+          <hr class="grey-hr" />
+          <div class="new-password">
+            <label class="profile-email"
+              >Email
+              <p>*</p>
+            </label>
+            <div class="d-flex input__bordered w-50 align-items-center">
+              <span class="mr-10 ml-10"> : </span>
+              <mat-form-field appearance="fill" class="w-100 input__label--disabled">
+                <input placeholder="Email" type="email" readonly matInput formControlName="email" autocomplete="off" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="new-password">
+            <label class="profile-email"
+              >First name
+              <p>*</p>
+            </label>
+            <div class="d-flex input__bordered w-50 align-items-center">
+              <span class="mr-10 ml-10"> : </span>
+              <mat-form-field appearance="fill" class="w-100 input__label--disabled">
+                <input matInput placeholder="First name" autocomplete="off" type="text" formControlName="firstName" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="new-password">
+            <label class="profile-email"
+              >Last name
+              <p>*</p>
+            </label>
+            <div class="d-flex input__bordered w-50 align-items-center">
+              <span class="mr-10 ml-10"> : </span>
+              <mat-form-field appearance="fill" class="w-100 input__label--disabled">
+                <input matInput autocomplete="off" placeholder="Last name" type="text" formControlName="lastName" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="new-password">
+            <label class="profile-email">Phone number </label>
+            <div class="d-flex input__bordered w-50 align-items-center">
+              <span class="mr-10 ml-10"> : </span>
+              <mat-form-field appearance="fill" class="w-100 input__label--disabled">
+                <input
+                  matInput
+                  placeholder="Phone number"
+                  type="text"
+                  formControlName="phoneNumber"
+                  (keypress)="checkMobileNumber($event)"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="new-password">
+            <label class="profile-email">Profile Image</label>
+            <div class="input-pass w-50 align-items-center d-flex">
+              <span class="mr-10 ml-10"> : </span>
+              <div class="d-flex mt-10">
+                <div>
+                  <div
+                    *ngIf="profileImage"
+                    [style]="{ backgroundImage: 'url(' + profileImage + ')' }"
+                    class="header--initial d-flex just-center align-center"
+                    style="background-size: cover"
+                  ></div>
+                  <div *ngIf="!profileImage" class="header--initial d-flex just-center align-center">
+                    <span>{{ initialLetter }}</span>
+                  </div>
+                </div>
+                <input
+                  style="justify-self: center; display: none"
+                  matInput
+                  autocomplete="off"
+                  placeholder="Bot Title"
+                  class="cust-input font-500 f-14 w-80"
+                />
+                <input type="file" style="display: none" (change)="imageUpload($event)" accept="image/*" #botImage />
+                <button class="ml-20 common-button" mat-flat-button color="primary" (click)="botImage.click()"> Choose File </button>
+              </div>
+            </div>
+          </div>
+          <div class="reset-button">
+            <button
+              mat-flat-button
+              class="common-button"
+              color="primary"
+              (click)="UpdateProfile()"
+              style="margin: 0 10px; min-width: 80px; max-height: 35px"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="common-container">
+    <div class="common-box">
+      <div class="color-primary">Reset your password</div>
+      <hr class="mt-10 mb-10 grey-hr" />
+      <form [formGroup]="resetpassword">
+        <div class="profile-main">
+          <div class="new-password">
+            <label class="reset-form__label">Current password </label>
+            <div class="d-flex input__bordered w-50 align-items-center">
+              <span class="mr-10 ml-10"> : </span>
+              <mat-form-field appearance="fill" class="w-100 input__label--disabled">
+                <input matInput placeholder="Enter current password" type="password" formControlName="oldPassword" autocomplete="off" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="new-password">
+            <label class="reset-form__label">New password </label>
+            <div class="d-flex input__bordered w-50 align-items-center">
+              <span class="mr-10 ml-10"> : </span>
+              <mat-form-field appearance="fill" class="w-100 input__label--disabled">
+                <input matInput placeholder="Enter new password" autocomplete="off" type="password" formControlName="newPassword" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="new-password">
+            <label class="reset-form__label">Confirm password </label>
+            <div class="d-flex input__bordered w-50 align-items-center">
+              <span class="mr-10 ml-10"> : </span>
+              <mat-form-field appearance="fill" class="w-100 input__label--disabled">
+                <input type="password" matInput autocomplete="off" placeholder="Enter confirm password" formControlName="confirmPassword" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="reset-button">
+          <button class="common-button" mat-flat-button color="primary" (click)="forgotPassword()"> Save </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>
+<div *ngIf="isLoading" class="d-flex align-items-center just-center w-100" id="loaderScreen">
+  <app-loader></app-loader>
+</div>

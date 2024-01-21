@@ -1,0 +1,83 @@
+<div class="login-container">
+  <div class="login-background" *ngIf="!isLoading">
+    <div class="login-form">
+      <div class="w-100 d-flex flex-wrap h-100">
+        <div class="ttl-login-form-left-background" *ngIf="status === 'login'">
+          <div>
+            <h3 class="heading-4 color-primary font-500"> Welcome to your account </h3>
+          </div>
+          <form [formGroup]="loginForm" class="pt-20">
+            <div>
+              <mat-form-field appearance="fill" class="w-100 input__label--disabled accent">
+                <input matInput autocomplete="off" type="email" placeholder="Email address" formControlName="userId" />
+              </mat-form-field>
+            </div>
+            <div class="mt-10">
+              <mat-form-field appearance="fill" class="w-100 input__label--disabled accent">
+                <input matInput autocomplete="off" type="password" placeholder="Password" formControlName="password" />
+              </mat-form-field>
+            </div>
+            <div class="forgot-password d-flex just-end mt-10">
+              <a class="body-1 text-underline c-p" routerLink="/forgot">Forgot Password?</a>
+            </div>
+            <div class="mt-20">
+              <button type="submit" class="common-button" mat-flat-button color="primary" (click)="login()"> Login </button>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="status === 'forgot'" class="ttl-login-form-left-background">
+          <div class="ttl-login-form">
+            <span class="heading-4 font-600 font-ttl mb-40"> Don't remember your password? </span>
+            <span class="font-500 align-span"> Please enter your email Id to retrieve your password. </span>
+            <form [formGroup]="forgetPassForm" class="pt-5 w-100">
+              <div class="login-form-input">
+                <mat-form-field appearance="fill" class="w-100 input__label--disabled accent">
+                  <input matInput autocomplete="off" type="email" formControlName="email" placeholder="Email address" />
+                </mat-form-field>
+              </div>
+              <div class="d-flex text-underline mt-10 flex-wrap just-space-bet">
+                <div id="captcha_element"></div>
+                <div class="go-to-login">
+                  <a class="body-1 text-underline c-p" routerLink="/login">Go To Login</a>
+                </div>
+              </div>
+              <div class="mt-10">
+                <button class="common-button" mat-flat-button color="primary" (click)="forgotPassword()"> Send Mail </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="ttl-login-form-left-background" *ngIf="status === 'reset'">
+          <div class="ttl-login-form">
+            <span class="heading-4 font-600 font-ttl"> Reset your password </span>
+
+            <form [formGroup]="resetPassForm" class="pt-20">
+              <div>
+                <mat-form-field appearance="fill" class="w-100 input__label--disabled accent">
+                  <input matInput autocomplete="off" type="password" formControlName="password" placeholder="Password" />
+                </mat-form-field>
+              </div>
+              <div class="mt-10">
+                <mat-form-field appearance="fill" class="w-100 input__label--disabled accent">
+                  <input matInput autocomplete="off" type="password" formControlName="confirmPassword" placeholder="Confirm password" />
+                </mat-form-field>
+              </div>
+              <div id="captcha_element" class="mt-10"></div>
+              <div class="mt-10">
+                <button class="common-button mt-10 mb-40" mat-flat-button color="primary" (click)="resetPassword()">
+                  Reset Password
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="login-form-right-background">
+          <div class="image-container">
+            <img class="bot-image" src="../../../assets/images/nps_login.png" alt="login-image" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

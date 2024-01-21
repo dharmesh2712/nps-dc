@@ -1,0 +1,33 @@
+<div class="custom-pagination">
+  <div class="record-details d-flex align-center">
+    <span>{{ showPaginationDetail() }}</span>
+    <div class="limit-selection">
+      <mat-select
+        class="common-select"
+        [(ngModel)]="paginationConfig.limit"
+        (selectionChange)="changeLimit($event)"
+        panelClass="pagination-drop"
+      >
+        <mat-option [value]="5">5</mat-option>
+        <mat-option [value]="10">10</mat-option>
+        <mat-option [value]="25">25</mat-option>
+        <mat-option [value]="50">50</mat-option>
+        <mat-option [value]="75">75</mat-option>
+        <mat-option [value]="100">100</mat-option>
+      </mat-select>
+    </div>
+    <span>Rows per page</span>
+  </div>
+  <div class="pagination">
+    <span [ngClass]="{ 'disable-nav-btn': pagination.disablePrev }" (click)="prevPage()" class="back-btn">Previous </span>
+    <button
+      *ngFor="let val of pagination.totalPages"
+      class="index-btns"
+      [ngClass]="{ 'index-active': val.status }"
+      (click)="changePage(val.no)"
+    >
+      {{ val.no }}
+    </button>
+    <span (click)="nextPage()" [ngClass]="{ 'disable-nav-btn': pagination.disableNext }" class="forward-btn">Next </span>
+  </div>
+</div>

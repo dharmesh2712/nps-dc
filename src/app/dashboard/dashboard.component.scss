@@ -1,0 +1,148 @@
+@import "../../styles/color-palette.scss";
+#menu-effect {
+  width: 70px;
+  padding: 10px 0 0 10px;
+  text-align: center;
+  background-color: $left-sidebar-color;
+
+  #logo {
+    margin-bottom: 15px;
+    margin-right: 10px;
+  }
+
+  .icon-set {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 20px;
+    padding-right: 10px;
+    overflow: auto;
+    height: calc(100vh - 75px);
+
+    a {
+      text-decoration: none;
+      padding-bottom: 25px;
+    }
+
+    .icon-class {
+      min-height: 45px;
+      min-width: 45px;
+      padding: 8px;
+      background-color: transparent;
+      box-shadow: none;
+      transition: 0.5s all;
+      border-radius: 4px;
+
+      mat-icon {
+        color: white;
+      }
+    }
+  }
+
+  .icon-set a:last-child {
+    padding-bottom: 0;
+  }
+
+  .icon-selected {
+    .icon-class {
+      box-shadow: 0 0 8px #3939391a;
+      background-color: white !important;
+
+      mat-icon {
+        color: $primary-color !important;
+      }
+    }
+  }
+}
+.main-right-div {
+  width: calc(100% - 70px);
+  overflow-y: hidden;
+  transition: all 0.5s;
+  .dashboard {
+    height: calc(100vh - 70px);
+    width: 100%;
+    overflow: auto;
+    background-color: $background-primary-color;
+  }
+  .header {
+    display: flex;
+    height: 70px;
+    justify-content: space-between;
+    padding: 0 20px 0 20px;
+    flex-wrap: wrap;
+
+    .header-title {
+      color: $primary-color;
+      font-family: Ubuntu, sans-serif;
+      font-size: 28px;
+      align-self: center;
+      font-weight: 600;
+    }
+
+    .header-right .notificaion-icon {
+      cursor: pointer;
+      margin-right: 20px;
+      background-color: $primary-color;
+      border-radius: 38px;
+      padding: 5px;
+      height: 38px;
+      color: white;
+      width: 38px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-right {
+      transition: 0.5s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .header--main {
+        display: flex;
+        width: fit-content !important;
+        background-color: transparent;
+        align-items: center;
+
+        .header--initial {
+          height: 38px;
+          width: 38px;
+          text-transform: capitalize;
+          border-radius: 50%;
+          border: 1px solid $primary-color;
+          background-color: $background-primary-color;
+          font-size: 1rem;
+          font-weight: 600;
+          color: $title-color;
+        }
+
+        .header--initial:hover {
+          box-shadow: 0 0 5px 0 $primary-color;
+        }
+
+        .drop-arrow {
+          color: $font-color-light;
+        }
+
+        .rotate-icon {
+          transform: rotate(180deg);
+        }
+
+        .header--user-name {
+          font-size: 18px;
+          color: $font-color-light;
+          margin-left: 10px;
+          min-width: 50px;
+          max-width: 150px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: left;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+}

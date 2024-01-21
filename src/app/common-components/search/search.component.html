@@ -1,0 +1,29 @@
+<div class="d-flex w-100" *ngIf="!isFilter">
+  <mat-form-field appearance="fill" class="w-100 input__label--disabled" [ngClass]="{ accent: isAccent }">
+    <input
+      matInput
+      type="text"
+      autocomplete="off"
+      (keyup)="search(searchInput.value, $event)"
+      #searchInput
+      [(ngModel)]="searchText"
+      placeholder="Search"
+    />
+  </mat-form-field>
+  <button mat-icon-button color="primary" (click)="search(searchInput.value)" class="ml-10 common-icon-div">
+    <img src="assets/images/search.svg" />
+  </button>
+</div>
+<div class="d-flex w-100" *ngIf="isFilter">
+  <div class="d-flex w-100">
+    <input class="cus-text-input-filter" (keyup)="search(searchInput.value, $event)" #searchInput placeholder="Search" />
+    <button class="filter-button" mat-flat-button cdkFocusInitial (click)="emitFilter()">
+      <i class="material-icons"> filter_list </i>
+      Filter
+    </button>
+  </div>
+
+  <button mat-icon-button color="primary" (click)="search(searchInput.value)" class="ml-10 common-icon-div">
+    <img src="assets/images/search.svg" />
+  </button>
+</div>

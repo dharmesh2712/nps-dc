@@ -1,0 +1,78 @@
+<div class="d-flex just-space-bet align-center">
+  <div class="analytics-sub-headers w-30">{{ title }}</div>
+  <div class="d-flex align-center w-70 just-end">
+    <mat-select
+      *ngIf="isCategory"
+      [(ngModel)]="npsAnalyticsData.category"
+      (ngModelChange)="categoryChanged($event)"
+      class="custom-select graph-header-select"
+      placeholder="Select category"
+      ><mat-option [value]="''">All Category</mat-option>
+      <ng-container *ngFor="let category of categoryList">
+        <mat-option [value]="category.categoryId">{{
+          category.categoryName
+        }}</mat-option>
+      </ng-container>
+    </mat-select>
+    <mat-select
+      *ngIf="isSurvey"
+      (ngModelChange)="surveyChanged($event)"
+      [(ngModel)]="npsAnalyticsData.survey"
+      class="custom-select graph-header-select ml-10"
+      placeholder="Survey"
+    >
+      <mat-option *ngIf="!npsAnalyticsData.category.trim()" [value]="''"
+        >All Survey</mat-option
+      >
+      <mat-option *ngFor="let survey of surveyList" [value]="survey.surveyId">
+        {{ survey.surveyName }}
+      </mat-option>
+    </mat-select>
+    <mat-select
+      *ngIf="isRegion"
+      (ngModelChange)="regionChanged($event)"
+      [(ngModel)]="npsAnalyticsData.region"
+      class="custom-select graph-header-select ml-10 w-100"
+      placeholder="Region"
+    >
+      <mat-option [value]="''">All Region</mat-option>
+      <mat-option *ngFor="let region of regionList" [value]="region">
+        {{ region }}
+      </mat-option>
+    </mat-select>
+    <div *ngIf="isDatePicker" class="d-flex ml-10 p-0 date-picker-main c-p">
+      <div class="chart-date-picker border-none" (click)="rangePicker.open()">
+        <mat-datepicker-toggle
+          matPrefix
+          [for]="rangePicker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-input
+          class="mr-10"
+          [formGroup]="range"
+          [rangePicker]="rangePicker"
+          [min]="minDate"
+          [max]="maxDate"
+        >
+          <input
+            matStartDate
+            autocomplete="off"
+            formControlName="start"
+            (dateChange)="setStartDate($event)"
+            placeholder="Start date"
+          />
+          <input
+            matEndDate
+            autocomplete="off"
+            formControlName="end"
+            placeholder="End date"
+            (dateChange)="setEndDate($event)"
+          />
+        </mat-date-range-input>
+        <mat-date-range-picker
+          #rangePicker
+          disabled="false"
+        ></mat-date-range-picker>
+      </div>
+    </div>
+  </div>
+</div>

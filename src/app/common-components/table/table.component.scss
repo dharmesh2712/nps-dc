@@ -1,0 +1,206 @@
+@import "../../../styles/color-palette.scss";
+$general-border-radius: $global-border-radius;
+
+//Common table style
+.main-table {
+  width: 100%;
+  height: min-content;
+  position: relative;
+  .loading-shade {
+    height: 100%;
+    width: calc(100% + 40px);
+    position: absolute;
+    top: 0;
+    left: -20px;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.12);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .checked-count {
+    margin-left: 10px;
+    color: $font-color-dark;
+    word-break: break-word;
+    span {
+      color: $primary-color;
+      cursor: pointer;
+    }
+  }
+  table {
+    width: 100%;
+    border-collapse: separate !important;
+    border-spacing: 0 15px !important;
+  }
+  .custom-table td,
+  .custom-table th {
+    border: 0 !important;
+    max-height: 40px;
+    min-height: 40px;
+  }
+  .custom-table th {
+    color: $font-color-dark;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: start;
+  }
+  .table-column {
+    background: white;
+    border-radius: $general-border-radius;
+  }
+  .table-column-gray {
+    background-color: $background-primary-color;
+  }
+  .column {
+    color: $font-color-light;
+    padding-left: 0px;
+    word-break: break-word;
+    mat-icon {
+      font-size: 18px;
+      width: 100%;
+      height: 100%;
+    }
+    img {
+      height: 18px;
+      margin-right: 5px;
+    }
+  }
+  .table-column-cell {
+    padding: 10px;
+    border-radius: $global-border-radius 0 0 $global-border-radius;
+  }
+  .table-column-cell-last {
+    padding-right: 10px;
+    border-radius: 0 4px 4px 0 !important;
+  }
+  .table-header {
+    border-collapse: separate !important;
+    border-spacing: 0 10px !important;
+  }
+  .table-action-cell {
+    padding-right: 20px;
+    border-radius: 0 $global-border-radius $global-border-radius 0;
+    color: $primary-color;
+  }
+  .common-table-icon {
+    cursor: pointer;
+    height: 28px !important;
+    width: 28px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    line-height: 28px !important;
+    background-color: $primary-color;
+    border-radius: $global-border-radius !important;
+    .mat-button-wrapper {
+      display: flex;
+    }
+    mat-icon {
+      font-size: $font-size-xl;
+      width: 100%;
+      height: 100%;
+      color: $white;
+    }
+  }
+  .preview {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    padding: 5px 10px !important;
+    mat-icon {
+      margin-left: 7px;
+      width: unset;
+    }
+  }
+  .preview:hover {
+    background-color: $primary-color;
+    color: $white;
+  }
+  .info-chip {
+    color: $grey-main;
+    background-color: $background-primary-color;
+    padding: 5px;
+    border-radius: $global-border-radius;
+    font-size: $font-size-sm;
+    margin: 0 5px;
+  }
+  .success-chip {
+    color: $white;
+    background-color: $success-color;
+    padding: 5px;
+    border-radius: $global-border-radius;
+    font-size: $font-size-sm;
+    margin: 0 5px;
+  }
+  .failed-chip {
+    color: $white;
+    background-color: $danger-color;
+    padding: 5px;
+    border-radius: $global-border-radius;
+    font-size: $font-size-sm;
+    margin: 0 5px;
+  }
+  .in-progress-chip {
+    color: $white;
+    background-color: $primary-color;
+    padding: 5px;
+    border-radius: $global-border-radius;
+    font-size: $font-size-sm;
+    margin: 0 5px;
+  }
+  .icon-text {
+    height: 20px !important;
+    width: 20px !important;
+  }
+  .text-with-preview {
+    mat-icon {
+      width: unset;
+    }
+  }
+}
+.status-tag {
+  border-radius: 5px;
+  width: 98px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 19px;
+  color: $white;
+  letter-spacing: 0;
+  font-weight: normal;
+  &.black {
+    color: $black;
+  }
+}
+.growthtool-img-class {
+  height: 25px !important;
+  width: 25px;
+}
+.status-div {
+  color: $white;
+  font-size: 14px;
+  padding: 5px 15px;
+  border-radius: $global-border-radius;
+  width: 100px;
+}
+
+.published {
+  background: #38c976;
+}
+.draft {
+  background: #e7ecf2;
+  color: $black;
+}
+.closed {
+  background-color: $fail-color;
+}
+.ellipsis {
+  max-width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

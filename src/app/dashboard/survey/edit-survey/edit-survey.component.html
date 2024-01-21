@@ -1,0 +1,579 @@
+<div class="breadcrumbs">
+  <div class="d-flex align-center">
+    <p><a [routerLink]="['/', 'dashboard', 'survey']">Survey</a></p>
+    <mat-icon class="mr-10 mt-5" aria-hidden="false">keyboard_arrow_right</mat-icon>
+    <p>Create Survey</p>
+  </div>
+</div>
+<ng-template #createForm>
+  <div class="main-form-dialog">
+    <div class="form-header d-flex just-space-bet border-bottom">
+      <span class="mb-10">Create Survey</span>
+      <mat-icon class="c-p mb-10" mat-dialog-close [routerLink]="['/', 'dashboard', 'survey']">close</mat-icon>
+    </div>
+    <div class="form-body d-flex border-bottom">
+      <div class="form-body-left w-20 border-right pr-5">
+        <h3>Screens</h3>
+        <div class="screen-list">
+          <ng-container *ngFor="let form of surveyScreensOfForms; let formIndex = index">
+            <div
+              class="form-screen w-100 border-radius p-10 mt-10 c-p d-flex align-center just-space-bet"
+              [ngClass]="{ 'bg-accent': formIndex === selectedFormIndex }"
+              (click)="surveyFormChange(formIndex)"
+              ><span> {{ form.title }}</span
+              ><mat-icon *ngIf="surveyScreensOfForms.length > 1 && !viewSurvey" (click)="deleteScreen(formIndex)">close</mat-icon></div
+            >
+          </ng-container>
+        </div>
+
+        <mat-accordion *ngIf="!viewSurvey" class="d-flex w-100">
+          <mat-expansion-panel
+            #panel
+            class="w-100 mt-10"
+            hideToggle
+            (opened)="isScreenExpansionOpen = true"
+            (closed)="isScreenExpansionOpen = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-description>
+                <div
+                  class="d-flex align-center border-radius w-100 pr-10 pt-10 pb-10 mt-10 c-p screen-add-button"
+                  [ngClass]="{ 'on-hover': !isScreenExpansionOpen }"
+                  ><mat-icon>add</mat-icon>Add Screen</div
+                >
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="bg-white input-screen-title border-radius pl-5 pr-5 pt-10 pb-10">
+              <div class="div-input-type border-radius d-flex align-center just-space-bet p-5">
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="email"
+                  [(ngModel)]="screenName"
+                  class="w-80"
+                  placeholder="Screen Name"
+                  [maxlength]="20"
+                />
+                <span class="f-14 w-20">{{ screenName | counterCharacters }}/20</span>
+              </div>
+
+              <button
+                class="mt-10 float-right"
+                [ngClass]="{ 'screen-length-reach': surveyScreensOfForms.length >= 8 }"
+                mat-flat-button
+                color="primary"
+                [matTooltip]="surveyScreensOfForms.length >= 8 ? 'You can add a maximum of 8' : ''"
+                matTooltipClass="screen-tooltip"
+                (click)="addScreeen(screenName); panel.close()"
+                [disabled]="!screenName.trim()"
+                >Add</button
+              >
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="form-body-middle w-50 border-right pl-10">
+        <h3>Edit content</h3>
+        <mat-accordion class="example-headers-align" [multi]="true">
+          <mat-expansion-panel
+            class="w-95 p-10"
+            (opened)="isScreenTitleExpandedFOrEditContent = true"
+            (closed)="isScreenTitleExpandedFOrEditContent = false"
+          >
+            <mat-expansion-panel-header class="mat-exp-header" [ngClass]="{ 'on-hover': !isScreenTitleExpandedFOrEditContent }">
+              <mat-panel-description>
+                <div class="d-flex align-center border-radius w-100 p-10 c-p">
+                  <span class="font-700">Screen Title</span> <span *ngIf="!isScreenTitleExpandedFOrEditContent" class="ml-10"> - </span
+                  ><span *ngIf="!isScreenTitleExpandedFOrEditContent" class="ml-10">{{ formEditData.title }}</span></div
+                >
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="bg-white input-screen-form border-radius p-10">
+              <div class="div-input-type border-radius d-flex align-center just-space-bet p-5">
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="text"
+                  class="w-80"
+                  placeholder="Enter Screen Title"
+                  [(ngModel)]="formEditData.title"
+                  [maxlength]="20"
+                  [disabled]="viewSurvey"
+                />
+                <span class="f-14 w-20">{{ formEditData.title | counterCharacters }}/20</span>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <ng-container *ngFor="let formEditChild of formEditData.children; let formsContentIndex = index">
+            <mat-expansion-panel
+              [expanded]="true"
+              class="w-95 p-10"
+              (opened)="collectionOfChildrenHover[formsContentIndex].isChildrenExpand = true"
+              (closed)="collectionOfChildrenHover[formsContentIndex].isChildrenExpand = false"
+            >
+              <mat-expansion-panel-header
+                class="mat-exp-header"
+                [ngClass]="{ 'on-hover': !collectionOfChildrenHover[formsContentIndex].isChildrenExpand }"
+              >
+                <mat-panel-description>
+                  <div class="d-flex align-center border-radius w-100 p-10 c-p">
+                    <span class="font-700">{{ formEditChild.type }}</span>
+                    <span class="ml-10" *ngIf="!collectionOfChildrenHover[formsContentIndex].isChildrenExpand"> - </span
+                    ><span class="ml-10" *ngIf="!collectionOfChildrenHover[formsContentIndex].isChildrenExpand">{{
+                      listOfTextType.includes(formEditChild.type) ? formEditChild.text : formEditChild.label
+                    }}</span></div
+                  >
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="bg-white input-screen-form border-radius p-10">
+                <ng-container *ngIf="listOfTextType.includes(formEditChild.type)">
+                  <div class="question-select-div p-5 border-radius">
+                    <mat-select class="question-text f-14 pl-10" [(ngModel)]="formEditChild.type">
+                      <mat-option *ngFor="let textType of listOfTextType" [value]="textType">
+                        {{ textType }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="div-input-type border-radius d-flex align-start just-space-bet p-5 mt-10">
+                    <textarea
+                      class="w-100"
+                      cols="30"
+                      rows="3"
+                      [(ngModel)]="formEditChild.text"
+                      [maxlength]="surveyHelper.lengthValidations[formEditChild.type].limit"
+                      [disabled]="viewSurvey"
+                    >
+                    </textarea>
+                    <span class="f-14 w-20"
+                      >{{ formEditChild.text | counterCharacters }}/{{ surveyHelper.lengthValidations[formEditChild.type].limit }}</span
+                    >
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="formEditChild.type === 'TextInput'">
+                  <div class="question-select-div p-5 border-radius">
+                    <mat-select class="question-text f-14 pl-10" [(ngModel)]="formEditChild.inputType">
+                      <mat-option *ngFor="let inputType of lisOfInputType" [value]="inputType">
+                        {{ inputType | titlecase }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                </ng-container>
+                <div
+                  *ngIf="labelContainType.includes(formEditChild.type)"
+                  class="div-input-type border-radius d-flex align-center just-space-bet p-5 mt-10"
+                >
+                  <input
+                    matInput
+                    autocomplete="off"
+                    type="text"
+                    placeholder="Label"
+                    class="w-80"
+                    [(ngModel)]="formEditChild.label"
+                    [maxlength]="surveyHelper.lengthValidations[formEditChild.type].labelLimit"
+                    [disabled]="viewSurvey"
+                  />
+                  <span class="f-14 w-20"
+                    >{{ formEditChild.label | counterCharacters }}/{{ surveyHelper.lengthValidations[formEditChild.type].labelLimit }}</span
+                  >
+                </div>
+                <div
+                  *ngIf="helperTextContainType.includes(formEditChild.type)"
+                  class="div-input-type border-radius d-flex align-center just-space-bet p-5 mt-10"
+                >
+                  <input
+                    matInput
+                    autocomplete="off"
+                    type="text"
+                    placeholder="Helper Text"
+                    class="w-80"
+                    [(ngModel)]="formEditChild.HelperText"
+                    [maxlength]="surveyHelper.lengthValidations[formEditChild.type].helperTextLimit"
+                    [disabled]="viewSurvey"
+                  />
+                  <span class="f-14 w-20"
+                    >{{ formEditChild.HelperText | counterCharacters }}/{{
+                      surveyHelper.lengthValidations[formEditChild.type].helperTextLimit
+                    }}</span
+                  >
+                </div>
+                <ng-container *ngIf="selectionType.includes(formEditChild.type)">
+                  <div class="mt-10">Options</div>
+                  <ng-container *ngFor="let dataSource of formEditChild.dataSource; let optionIndex = index">
+                    <div class="pl-10 d-flex align-center mt-10">
+                      <div class="div-input-type w-90 border-radius d-flex align-center just-space-bet p-5">
+                        <input
+                          matInput
+                          autocomplete="off"
+                          type="text"
+                          placeholder="Helper Text"
+                          class="f-14 w-70"
+                          [(ngModel)]="dataSource.title"
+                          (ngModelChange)="dataSource.id = dataSource.title"
+                          [maxlength]="surveyHelper.lengthValidations[formEditChild.type].optionsLimit"
+                          [disabled]="viewSurvey"
+                        />
+                        <span class="f-14 w-20"
+                          >{{ dataSource.title | counterCharacters }}/{{
+                            surveyHelper.lengthValidations[formEditChild.type].optionsLimit
+                          }}</span
+                        >
+                      </div>
+                      <mat-icon
+                        *ngIf="formEditChild.dataSource.length > 2 && !viewSurvey"
+                        class="ml-10 c-p"
+                        color="primary"
+                        (click)="formEditChild.dataSource.splice(optionIndex, 1)"
+                        >delete</mat-icon
+                      >
+                    </div>
+                  </ng-container>
+                  <button
+                    mat-stroked-button
+                    color="accent"
+                    class="common-button-secondary mt-10"
+                    (click)="addOptions(formsContentIndex)"
+                    [disabled]="viewSurvey"
+                    ><mat-icon>add</mat-icon> Add Option</button
+                  >
+                </ng-container>
+                <div
+                  class="d-flex align-center mt-10 just-end"
+                  [ngClass]="{
+                    'just-space-bet': formEditChild.type === 'Dropdown' || formEditChild.type === 'RadioButtonsGroup'
+                  }"
+                >
+                  <div *ngIf="formEditChild.type === 'Dropdown' || formEditChild.type === 'RadioButtonsGroup'" class="w-40 scaling-factor">
+                    <mat-select
+                      class="calculation-type-select border-radius f-10 pl-10 font-700 pr-10 pt-5 pb-5 w-85"
+                      [ngModel]="formEditChild.scalingFactor"
+                      (selectionChange)="handleScallingFactor(formEditChild, $event)"
+                      placeholder="Select Scaling Factor"
+                      [disabled]="viewSurvey"
+                    >
+                      <mat-option class="custom-font-size" [disabled]="scalingFactor.TNPS" value="TNPS"
+                        >TNPS (Net Promoter Score)
+                      </mat-option>
+                      <mat-option class="custom-font-size" [disabled]="scalingFactor.CTI" value="CTI">
+                        CTI (Score of Transaction)</mat-option
+                      >
+                      <mat-option class="custom-font-size" [disabled]="scalingFactor.TSAT" value="TSAT"
+                        >T-SAT (Timely Resolution Score)
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="d-flex align-center">
+                    <ng-container *ngIf="!listOfTextType.includes(formEditChild.type)">
+                      <span class="mr-10">Required</span>
+                      <mat-slide-toggle [(ngModel)]="formEditChild.required" [disabled]="viewSurvey"></mat-slide-toggle
+                    ></ng-container>
+                    <mat-icon *ngIf="!viewSurvey" class="ml-20 c-p" color="primary" (click)="deleteChildren(formsContentIndex)"
+                      >delete</mat-icon
+                    >
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </ng-container>
+          <mat-expansion-panel
+            class="w-95 p-10"
+            (opened)="isButtonTitleExpandedFOrEditContent = true"
+            (closed)="isButtonTitleExpandedFOrEditContent = false"
+          >
+            <mat-expansion-panel-header class="mat-exp-header" [ngClass]="{ 'on-hover': !isButtonTitleExpandedFOrEditContent }">
+              <mat-panel-description>
+                <div class="d-flex align-center border-radius w-100 p-10 c-p">
+                  <span class="font-700">Button</span> <span *ngIf="!isButtonTitleExpandedFOrEditContent" class="ml-10"> - </span
+                  ><span *ngIf="!isButtonTitleExpandedFOrEditContent" class="ml-10">{{ formEditData.footer.label }}</span></div
+                >
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="bg-white input-screen-form border-radius p-10">
+              <div class="div-input-type border-radius d-flex align-center just-space-bet p-5">
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="text"
+                  class="w-80"
+                  placeholder="Enter Button Title"
+                  [(ngModel)]="formEditData.footer.label"
+                  [maxlength]="30"
+                  [disabled]="viewSurvey"
+                />
+                <span class="f-14 w-20">{{ formEditData.footer.label | counterCharacters }}/30</span>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <button
+          mat-stroked-button
+          color="accent"
+          class="common-button-secondary mt-10"
+          [matTooltip]="formEditData.children.length >= 8 ? 'You can add a maximum of 8' : ''"
+          matTooltipClass="screen-tooltip"
+          [ngClass]="{ 'add-conten-disabled': formEditData.children.length >= 8 }"
+          cdkMenuItem
+          [cdkMenuTriggerFor]="content"
+          [disabled]="viewSurvey"
+          ><mat-icon>add</mat-icon> Add Content</button
+        >
+      </div>
+      <div class="form-body-right w-30 pl-10 d-flex align-center just-center">
+        <div class="preview-main-container w-80">
+          <div class="preview-header d-flex align-center just-start p-10">
+            <img src="../../../../assets/images/whatsapp-profile.svg" alt="whatsapp-profile" />
+            <div class="header-line w-50 ml-20"></div>
+          </div>
+          <div class="preview-body">
+            <div class="first-message mt-30 d-flex just-end">
+              <div class="first-message-content w-60 d-flex align-center"> <div class="w-80 ml-10"></div> </div>
+            </div>
+            <div class="second-message mt-30 d-flex just-start">
+              <div class="second-message-content w-60 d-flex flex-column align-start just-center pt-5 pb-5">
+                <div class="w-80 ml-10"></div> <div class="w-60 ml-10 mt-5"></div>
+                <hr class="w-100" />
+                <span class="preview-flow w-100 c-p font-700" (click)="previewOpen()">Preview Flow</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer w-100 d-flex"></div>
+          <div class="drover-data" [ngClass]="{ 'drover-data-open': isDroverOpen }">
+            <div class="drover-header d-flex align-center just-space-bet pl-10 pr-10">
+              <mat-icon class="c-p f-18" (click)="isDroverOpen = false">close</mat-icon>
+              <span class="f-14 font-700">{{ formEditData.title }}</span>
+              <mat-icon class="c-p f-18">more_vert</mat-icon>
+            </div>
+            <div class="body-part">
+              <ng-container *ngFor="let formPreview of formEditData.children; let formPreviewIndex = index">
+                <p
+                  *ngIf="listOfTextType.includes(formPreview.type)"
+                  class="preview-text pl-10 pr-10"
+                  [ngClass]="{
+                    'f-20': formPreview.type === 'TextHeading',
+                    'f-18': formPreview.type === 'TextSubheading',
+                    'f-16': formPreview.type === 'TextBody',
+                    'f-14': formPreview.type === 'TextCaption'
+                  }"
+                >
+                  {{ formPreview.text }}
+                </p>
+                <div class="mt-10 pl-5 pr-5" *ngIf="formPreview.type === 'TextInput'">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ formPreview.label }}</mat-label>
+                    <input
+                      matInput
+                      [type]="formPreview.inputType === 'password' || formPreview.inputType === 'passcode' ? 'password' : 'text'"
+                      [(ngModel)]="formPreview.value"
+                      (focus)="formPreview.focusOutFLag = false"
+                      (focusout)="formPreview.focusOutFLag = true"
+                      (ngModelChange)="checkRequiredDetailsFill()"
+                    />
+                  </mat-form-field>
+                  <span *ngIf="!formPreview.focusOutFLag" class="f-10">{{ formPreview.HelperText }}</span>
+                  <span *ngIf="formPreview.required && formPreview.focusOutFLag && !formPreview.value?.trim()" class="danger f-10"
+                    >Enter {{ formPreview.label }}</span
+                  >
+                </div>
+                <div class="mt-10 pl-10 pr-10" *ngIf="formPreview.type === 'TextArea'">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ formPreview.label }}</mat-label>
+                    <textarea
+                      matInput
+                      type="text"
+                      rows="3"
+                      [(ngModel)]="formPreview.value"
+                      (focus)="formPreview.focusOutFLag = false"
+                      (focusout)="formPreview.focusOutFLag = true"
+                      (ngModelChange)="checkRequiredDetailsFill()"
+                    ></textarea>
+                  </mat-form-field>
+                  <span *ngIf="!formPreview.focusOutFLag" class="f-10">{{ formPreview.HelperText }}</span>
+                  <span *ngIf="formPreview.required && formPreview.focusOutFLag && !formPreview.value?.trim()" class="danger f-10"
+                    >Enter {{ formPreview.label }}</span
+                  >
+                </div>
+                <!-- <ion-datetime
+                  class="custom-datetime"
+                  style="font-size: 10px"
+                  presentation="date"
+                  [preferWheel]="true"
+                ></ion-datetime> -->
+                <!-- <ion-list>
+                  <ion-item>
+                    <ion-label>Popover - Time selection</ion-label>
+                    <ion-note slot="end" id="open-popover2">{{
+                      dateExample
+                    }}</ion-note>
+                  </ion-item>
+                  <ion-popover trigger="open-popover2" cssClass="width-80">
+                    <ng-template>
+                      <ion-datetime
+                        [(ngModel)]="dateExample"
+                        class="custom-datetime"
+                        style="font-size: 10px"
+                        presentation="date"
+                        [preferWheel]="true"
+                        size="cover"
+                      ></ion-datetime>
+                    </ng-template>
+                  </ion-popover>
+                </ion-list> -->
+                <mat-radio-group
+                  *ngIf="formPreview.type === 'RadioButtonsGroup'"
+                  class="value-input w-100"
+                  aria-label="Select an option"
+                  [(ngModel)]="formPreview.value"
+                  (ngModelChange)="checkRequiredDetailsFill()"
+                >
+                  <div class="d-flex flex-column">
+                    <div class="pl-10">{{ formPreview.label }}</div>
+                    <ng-container *ngFor="let option of formPreview.dataSource">
+                      <div class="d-flex align-center just-space-bet f-14 pl-10 pr-10 mt-10">
+                        <mat-radio-button
+                          color="primary"
+                          labelPosition="before"
+                          [checked]="option.value"
+                          (change)="option.value = $event.source.checked"
+                          >{{ option.title }}</mat-radio-button
+                        ></div
+                      >
+                    </ng-container>
+                  </div>
+                </mat-radio-group>
+                <div *ngIf="formPreview.type === 'CheckboxGroup'" class="d-flex flex-column">
+                  <div class="pl-10">{{ formPreview.label }}</div>
+                  <ng-container *ngFor="let option of formPreview.dataSource">
+                    <div class="d-flex align-center just-space-bet f-14 pl-10 pr-10 mt-10">
+                      <mat-checkbox
+                        labelPosition="before"
+                        [checked]="option.value"
+                        (change)="option.value = $event.checked; checkRequiredDetailsFill()"
+                        >{{ option.title }}</mat-checkbox
+                      >
+                    </div>
+                  </ng-container>
+                </div>
+                <div *ngIf="formPreview.type === 'Dropdown'" class="mt-10 pl-10 pr-10">
+                  <mat-form-field appearance="outline" class="c-p w-100">
+                    <mat-label>{{ formPreview.label }}</mat-label>
+                    <input
+                      readonly
+                      matInput
+                      class="c-p"
+                      [(ngModel)]="formPreview.value"
+                      (click)="isDropDownSelect = true; indexOfSlectedDropDown = formPreviewIndex"
+                    />
+                  </mat-form-field>
+                  <span *ngIf="formPreview.focusOutFLag && !formPreview.value?.trim()" class="danger f-10"
+                    >Enter {{ formPreview.label }}</span
+                  >
+                </div>
+                <div *ngIf="isDropDownSelect" class="drover-data-1" [ngClass]="{ 'drover-data-open-1': isDropDownSelect }">
+                  <ng-container *ngFor="let option of formEditData.children[indexOfSlectedDropDown].dataSource; let optionIndex = index">
+                    <div
+                      class="f-14 p-10 c-p d-flex just-space-bet"
+                      [ngClass]="{ 'option-selected': option.value }"
+                      (click)="selectionValue(optionIndex, formEditData.children[indexOfSlectedDropDown]); isDropDownSelect = false"
+                    >
+                      <div>{{ option.title }}</div>
+                      <mat-icon *ngIf="option.value">check</mat-icon>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+            <div class="footer-part d-flex flex-column align-center">
+              <button
+                class="mt-10"
+                [ngClass]="{
+                  'footer-disable': formEditData.footer.isFooterDisable
+                }"
+                (click)="nextScreen()"
+              >
+                {{ formEditData.footer.label }}
+              </button>
+              <div class="mt-10">
+                <span>Managed by the business.</span><a href="https://faq.whatsapp.com/1137338520520761/" target="_blank">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-footer d-flex align-center just-space-bet">
+      <span class="mt-10">Once your survey has been published, then cannot be edited. </span>
+      <div class="mt-10">
+        <button *ngIf="!viewSurvey" mat-stroked-button color="accent" class="common-button-secondary" (click)="onDraft()">Draft</button>
+        <button *ngIf="!viewSurvey" class="common-button ml-10" mat-flat-button color="primary" (click)="publishSurvey()">Publish</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #content>
+  <div class="example-menu mt-10 d-flex flex-column" cdkMenu>
+    <button class="example-menu-item" cdkMenuItem [cdkMenuTriggerFor]="text">
+      <mat-icon class="d-flex just-start mr-5">text_fields</mat-icon> Text
+      <mat-icon class="d-flex just-end flex1">navigate_next</mat-icon></button
+    >
+    <button class="example-menu-item" cdkMenuItem [cdkMenuTriggerFor]="textAnswer"
+      ><mat-icon class="d-flex just-start mr-5">text_fields</mat-icon> Text Answer
+      <mat-icon class="d-flex just-end flex1">navigate_next</mat-icon></button
+    >
+    <button class="example-menu-item" cdkMenuItem [cdkMenuTriggerFor]="selection"
+      ><mat-icon class="d-flex just-start mr-5">format_list_bulleted</mat-icon> Selection
+      <mat-icon class="d-flex just-end flex1">navigate_next</mat-icon></button
+    >
+  </div>
+</ng-template>
+<ng-template #text>
+  <div class="example-menu d-flex flex-column" cdkMenu>
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('TextHeading')"
+      ><mat-icon class="d-flex just-start mr-5">text_fields</mat-icon>Large Heading
+      <mat-icon class="d-flex just-end flex1">navigate_next</mat-icon></button
+    >
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('TextSubheading')">
+      <mat-icon class="d-flex just-start mr-5">text_fields</mat-icon>Small Heading<mat-icon class="d-flex just-end flex1"
+        >navigate_next</mat-icon
+      ></button
+    >
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('TextCaption')"
+      ><mat-icon class="d-flex just-start mr-5">text_fields</mat-icon> Caption<mat-icon class="d-flex just-end flex1"
+        >navigate_next</mat-icon
+      >
+    </button>
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('TextBody')"
+      ><mat-icon class="d-flex just-start mr-5">text_fields</mat-icon> Body<mat-icon class="d-flex just-end flex1">navigate_next</mat-icon>
+    </button>
+  </div>
+</ng-template>
+<ng-template #textAnswer>
+  <div class="example-menu d-flex flex-column" cdkMenu>
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('TextInput')"
+      ><mat-icon class="d-flex just-start mr-5">text_fields</mat-icon>Short Answer<mat-icon class="d-flex just-end flex1"
+        >navigate_next</mat-icon
+      ></button
+    >
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('TextArea')"
+      ><mat-icon class="d-flex just-start mr-5">format_align_left</mat-icon> Paragraph<mat-icon class="d-flex just-end flex1"
+        >navigate_next</mat-icon
+      ></button
+    >
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('DatePicker')"
+      ><mat-icon class="d-flex just-start mr-5">date_range</mat-icon> Date Picker<mat-icon class="d-flex just-end flex1"
+        >navigate_next</mat-icon
+      >
+    </button>
+  </div>
+</ng-template>
+<ng-template #selection>
+  <div class="example-menu d-flex flex-column" cdkMenu>
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('RadioButtonsGroup')"
+      ><mat-icon class="d-flex just-start mr-5">radio_button_checked</mat-icon>Single Choice</button
+    >
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('CheckboxGroup')">
+      <mat-icon class="d-flex just-start mr-5">check_box</mat-icon>Multiple Choice</button
+    >
+    <button class="example-menu-item" cdkMenuItem (click)="selectedMenuItem('Dropdown')"
+      ><mat-icon class="d-flex just-start mr-5">format_list_bulleted</mat-icon> Drop-down
+    </button>
+  </div>
+</ng-template>

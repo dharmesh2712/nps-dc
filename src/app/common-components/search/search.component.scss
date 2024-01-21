@@ -1,0 +1,35 @@
+@import "../../../styles/color-palette.scss";
+.cus-text-input {
+  padding: 8px 20px;
+  outline: none;
+  font-weight: 500;
+  border: transparent;
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  height: 36px;
+  font-size: 16px;
+}
+
+.cus-text-input-filter {
+  padding: 8px 20px;
+  outline: none;
+  font-weight: 500;
+  border: transparent;
+  background: white;
+  border-radius: $global-border-radius 0px 0px $global-border-radius;
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+}
+
+.filter-button {
+  border-radius: 0px $global-border-radius $global-border-radius 0px;
+
+  i {
+    color: $font-color-dark !important;
+  }
+}
+::ng-deep .mat-button-focus-overlay {
+  display: none;
+}

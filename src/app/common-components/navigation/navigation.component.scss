@@ -1,0 +1,62 @@
+@import "../../../styles/color-palette.scss";
+.breadcrumb {
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  border-radius: 2px;
+  background-color: transparent;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  list-style: none;
+  display: flex;
+}
+.breadcrumb-item {
+  a {
+    text-decoration: none;
+    color: $font-color-dark;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  + .breadcrumb-item {
+    transition-duration: 0.3s;
+    transition-property: color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    align-items: center;
+    color: $font-color-dark;
+    display: -ms-flexbox;
+
+    &::before {
+      font-size: 1.5em;
+      line-height: 0.583333em;
+      vertical-align: -0.302198em;
+      font-family: Material Icons, sans-serif;
+      -webkit-font-feature-settings: "liga";
+      font-feature-settings: "liga";
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: normal;
+      text-rendering: optimizeLegibility;
+      text-transform: none;
+      white-space: nowrap;
+      word-wrap: normal;
+      color: rgba(0, 0, 0, 0.54);
+      content: "chevron_right";
+      display: inline-block;
+    }
+  }
+  + .breadcrumb-item:hover::before {
+    text-decoration: underline;
+  }
+  + .breadcrumb-item:hover::before {
+    text-decoration: none;
+  }
+}
+.breadcrumb > li + li:before {
+  padding: 0;
+}
+.breadcrumb-item.active {
+  color: $font-color-dark !important;
+  opacity: 0.5 !important;
+}

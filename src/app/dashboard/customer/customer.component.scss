@@ -1,0 +1,9 @@
+@import "../../../styles/color-palette.scss";
+
+::ng-deep {
+  .mat-badge-small.mat-badge-overlap.mat-badge-after .mat-badge-content {
+    font-size: 14px;
+    font-weight: 900;
+    color: $white;
+  }
+}

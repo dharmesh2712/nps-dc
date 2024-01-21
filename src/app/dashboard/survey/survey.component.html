@@ -1,0 +1,63 @@
+<div class="common-container">
+  <div class="w-100 d-flex just-space-bet">
+    <div class="w-50">
+      <app-search class="w-100" (searchEvent)="searchEvent($event)"></app-search>
+    </div>
+    <button class="ml-20 common-button" mat-flat-button color="primary" (click)="createSurvey(createSurveyTemplate)">
+      <mat-icon class="mr-5">add_circle</mat-icon> Create Survey
+    </button>
+  </div>
+  <ng-container *ngIf="!isLoading">
+    <app-table [data]="surveyList" [table]="table" (onAction)="actonPerform($event)" [isNotFireEditWithNavigatipn]="true"></app-table>
+    <div *ngIf="surveyList.length" class="d-flex">
+      <app-pagination
+        class="w-100"
+        [pagination]="pagination"
+        [paginationConfig]="paginationConfig"
+        (changePagination)="changePagination($event)"
+      >
+      </app-pagination>
+    </div>
+  </ng-container>
+  <div *ngIf="isLoading" class="d-flex align-items-center just-center w-100" id="loaderScreen">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #createSurveyTemplate>
+  <div class="w-100 mr-10">
+    <label class="common-title d-block pt-10">Name</label>
+    <mat-form-field appearance="fill" class="mt-5 input__label--disabled input__bordered w-100">
+      <input matInput autocomplete="off" type="text" [(ngModel)]="surveyCreation.Name" placeholder="Enter Survey Name" />
+    </mat-form-field>
+  </div>
+  <div class="w-100 mr-10">
+    <label class="common-title d-block pt-10">Category</label>
+    <mat-form-field appearance="fill" class="mt-5 input__label--disabled input__bordered w-100">
+      <mat-select [(ngModel)]="surveyCreation.CategoryId" placeholder="Select Category">
+        <mat-option value="ef1e0088-b145-4b77-b3dd-6c7007d3d671">Complaint on Billing</mat-option>
+        <mat-option value="5722b843-3f1f-43fa-a130-b40ef5284898">Complaint on Churn</mat-option>
+        <mat-option value="819f265c-d900-4281-a709-b05b0d300815">Complaint on Leased Line</mat-option>
+        <mat-option value="21a4aa8b-462c-4c2d-860c-13f3b6ff962a">Technical Complaint</mat-option>
+        <mat-option value="f694969e-5604-46c3-9f7c-b28125ffe402">New Activation</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button mat-flat-button color="primary" class="common-button float-right mt-10" (click)="saveSurveyName()"> Save </button>
+</ng-template>
+<ng-template #flowPayload>
+  <div class="d-flex w-100 bg-accent copy-json-area">
+    <textarea #flowPayloadCopy class="bg-accent w-100 p-5 scroll p-10" readonly value="{{ flowPayloadObj | json }}"> </textarea>
+    <button mat-icon-button class="common-icon-div m-10" (click)="copyJSONToClip(flowPayloadCopy)" aria-label="add">
+      <mat-icon>file_copy</mat-icon>
+    </button>
+  </div>
+</ng-template>
+<ng-template #apiPayload>
+  <div class="d-flex w-100 bg-accent copy-json-area">
+    <textarea class="bg-accent w-100 p-5 scroll p-10" readonly value="{{ apiPayloadObj | json }}"> </textarea>
+    <button mat-icon-button class="common-icon-div m-10" (click)="downloApiPayload()" aria-label="add">
+      <mat-icon>file_download</mat-icon>
+    </button>
+  </div>
+</ng-template>
+<ng-template> </ng-template>

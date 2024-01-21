@@ -1,0 +1,49 @@
+@import "../../../../styles/color-palette.scss";
+
+.analytics-card {
+  background-color: $background-primary-color;
+  border-radius: 15px;
+  margin: 10px;
+  height: 120px;
+  width: 23%;
+  @media only screen and (min-height: 1200px) {
+    padding-left: 50px;
+  }
+  .statistics {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: $global-font-family;
+    p {
+      color: $primary-color;
+      font-size: 30px;
+      font-weight: 700;
+      margin: 2px;
+      text-align: center;
+    }
+    p:last-child {
+      font-size: 20px;
+      color: $secondary-color;
+    }
+  }
+  .div-icon {
+    border: 2px solid $left-sidebar-color;
+    border-radius: 70px;
+    mat-icon {
+      font-size: 70px !important;
+      height: fit-content !important;
+      width: fit-content !important;
+    }
+  }
+}
+.graph-container {
+  background-color: #fff;
+  padding: 20px;
+  border: 2px solid #e2e2e3;
+  border-radius: 15px;
+}
+#myChart.chartjs-render-monitor.legend {
+  padding-top: 90px !important;
+  padding-left: 20px !important;
+  justify-content: flex-end;
+}

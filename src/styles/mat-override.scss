@@ -1,0 +1,374 @@
+/*Input variants -- Start*/
+
+.mat-mdc-form-field {
+  line-height: unset;
+}
+.mat-form-field-appearance-fill .mat-form-field-underline::before {
+  background-color: transparent;
+}
+
+/* Disabled*/
+
+.disabled {
+  .mat-mdc-form-field-flex {
+    background-color: rgb(226 226 226) !important;
+  }
+}
+
+/* Disabled*/
+.mat-form-field-appearance-fill.mat-form-field-disabled .mat-mdc-form-field-flex {
+  background-color: rgb(226 226 226) !important;
+}
+
+/*Accent*/
+.mat-form-field-appearance-fill.accent .mat-mdc-form-field-flex {
+  background-color: $background-primary-color;
+}
+
+.mat-form-field-appearance-fill.input__bordered .mat-mdc-form-field-flex {
+  border: 1px solid $grey-border;
+  border-radius: $global-border-radius;
+}
+
+/*Label*/
+.mat-form-field-appearance-fill .mat-mdc-form-field-flex {
+  padding: 7px 12px 0 16px !important;
+  border-radius: 4px !important;
+  background-color: white;
+  .mat-mdc-form-field-infix {
+    padding: 4px 0 4px 0 !important;
+    border-top: 2px solid transparent !important;
+    min-height: unset !important;
+    mat-select {
+      font-size: 16px;
+      height: 16px;
+    }
+    .mat-mdc-form-field-label-wrapper {
+      top: -5px;
+      .mat-mdc-form-field-label {
+        line-height: 16px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+.mat-form-field-appearance-fill .mat-mdc-form-field-label {
+  top: unset;
+}
+
+/*No label*/
+.input__label--disabled.mat-form-field-appearance-fill .mat-mdc-form-field-flex {
+  .mat-mdc-form-field-infix {
+    padding: 2px 0 10px 0 !important;
+    border-top: 2px !important;
+  }
+}
+
+.input__bordered {
+  mat-form-field {
+    border: 1px solid $grey-border;
+    border-radius: $global-border-radius;
+  }
+
+  .mat-mdc-form-field-disabled {
+    background-color: $grey-disabled !important;
+  }
+
+  .mat-focused {
+    border-bottom-color: transparent;
+  }
+}
+
+/*No padding*/
+.mat-mdc-text-field-wrapper {
+  padding: 0;
+  .mat-mdc-form-field-underline {
+    bottom: 0;
+  }
+}
+
+/*Input variants -- End*/
+/*Option*/
+mat-option {
+  .mat-option-text {
+    display: flex;
+    align-items: center;
+  }
+}
+mat-chip-list {
+  padding: 7px 12px 7px 16px !important;
+  border-radius: 4px;
+  font-family: $global-font-family;
+  mat-chip {
+    background-color: $secondary-color !important;
+    color: $white !important;
+    border-radius: 4px !important;
+  }
+  mat-chip mat-icon {
+    color: $white !important;
+    opacity: 1 !important;
+  }
+
+  input {
+    padding: 6px 0 !important;
+    line-height: 20px !important;
+  }
+}
+
+.mat-expansion-panel-content {
+  font-size: 16px;
+}
+
+/*Checkbox*/
+.mat-checkbox-layout .mat-checkbox-label {
+  line-height: 16px;
+}
+
+/*Expansion*/
+.mat-expansion-panel .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled="true"]),
+.mat-expansion-panel .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled="true"]),
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled="true"]) {
+  background: unset;
+}
+
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none !important;
+}
+
+mat-expansion-panel {
+  box-shadow: none;
+}
+.mat-expansion-panel-header {
+  padding: 0px !important;
+}
+.mat-expansion-panel-header.mat-expanded {
+  height: 40px !important;
+}
+.mat-expansion-panel.mat-expanded {
+  background-color: #edf2f6 !important;
+}
+.mat-expansion-panel-body {
+  padding: 0 10px 16px !important;
+}
+mat-panel-title {
+  color: $font-color-dark !important;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/*Select*/
+
+.mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+  transform: none !important;
+}
+
+.icon-prefix-override {
+  .mat-mdc-form-field-flex {
+    align-items: flex-start;
+  }
+
+  .mat-icon {
+    line-height: 1;
+    font-size: 24px;
+  }
+}
+
+.mat-tab-label {
+  opacity: 1 !important;
+  background-color: transparent !important;
+}
+.mat-mdc-dialog-actions {
+  margin-bottom: unset !important;
+}
+
+/*Menu*/
+.mat-mdc-menu-panel {
+  min-height: fit-content !important;
+
+  .mat-mdc-menu-content {
+    padding: 0 !important;
+
+    .mat-mdc-menu-item mat-icon {
+      color: $primary-color !important;
+    }
+  }
+}
+
+/*Progress Bar*/
+.mat-progress-bar-background {
+  fill: none;
+}
+.mat-progress-bar-buffer {
+  background-color: rgba($primary-color, 0.5);
+}
+.mat-mdc-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: $primary-color !important;
+}
+.deleteDepartmentForceFully .dialog-body {
+  overflow: hidden !important;
+}
+.mat-mdc-dialog-container {
+  position: relative;
+  .mdc-dialog__surface {
+    padding: 24px;
+  }
+}
+.mdc-dialog .mdc-dialog__content {
+  padding: 0 !important;
+}
+
+.mdc-text-field--filled {
+  height: unset;
+  padding: 0 !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: transparent;
+}
+
+.mat-mdc-icon-button {
+  padding: 0 !important;
+  min-width: 0;
+  width: 40px !important;
+  height: 40px !important;
+  flex-shrink: 0 !important;
+  line-height: 40px;
+}
+.mdc-menu-surface.mat-mdc-select-panel {
+  padding-top: 0 !important;
+  // min-width: 100% !important;
+  max-height: 296px !important;
+  .mat-mdc-option {
+    &.mdc-list-item--disabled {
+      opacity: 0.3;
+    }
+    &.mdc-list-item {
+      font-size: $font-size-md;
+    }
+  }
+}
+.mat-icon {
+  overflow: unset !important;
+}
+button,
+.mat-mdc-tab .mdc-tab__content {
+  letter-spacing: normal !important;
+}
+.mat-mdc-unelevated-button {
+  color: $white !important;
+}
+.mat-mdc-form-field-input-control,
+.mat-mdc-menu-content .mat-mdc-menu-item .mdc-list-item__primary-text {
+  letter-spacing: normal !important;
+  font-size: $font-size-md !important;
+}
+.mat-mdc-slide-toggle {
+  .mdc-switch {
+    width: 47px !important;
+    &.mdc-switch--unselected:enabled .mdc-switch__icon {
+      fill: $grey-primary !important;
+    }
+    &.mdc-switch--selected:enabled .mdc-switch__icon {
+      fill: $primary-color !important;
+    }
+    .mdc-switch__handle-track {
+      width: calc(100% - var(--mdc-switch-handle-width, 24px)) !important;
+    }
+    .mdc-switch__track {
+      height: 24px !important;
+      border-radius: 50px !important;
+    }
+    .mdc-switch__handle {
+      margin-left: 2px !important;
+    }
+    .mdc-switch__ripple {
+      height: 0 !important;
+      width: 0 !important;
+    }
+  }
+  .mdc-form-field {
+    font-size: 20px !important;
+  }
+}
+.mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay {
+  opacity: 0 !important;
+}
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: unset !important;
+}
+h3 {
+  font: 600 16px/28px Open Sans !important;
+}
+
+.chart-date-picker {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.mdc-icon-button,
+.chart-date-picker .mdc-icon-button {
+  line-height: 30px !important;
+
+  svg {
+    height: 16px;
+    width: 16px;
+  }
+}
+.chart-date-picker input {
+  border: none !important;
+  margin-top: 0 !important;
+  cursor: pointer;
+}
+.chart-date-picker .mat-date-range-input-container {
+  width: 100%;
+  font-size: 12px;
+}
+.mat-mdc-checkbox .mdc-checkbox {
+  padding: 0 !important;
+  margin: 1px 0 !important;
+  .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
+    background-color: $secondary-color;
+  }
+  .mdc-checkbox__native-control:enabled ~ .mdc-checkbox__background .mdc-checkbox__checkmark {
+    color: $white !important;
+  }
+  .mdc-checkbox__ripple {
+    background: transparent;
+  }
+  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate="true"]) ~ .mdc-checkbox__background {
+    border-color: $primary-color !important;
+  }
+  .mat-mdc-checkbox-touch-target {
+    height: 0 !important;
+    width: 0 !important;
+  }
+  .mdc-checkbox__background {
+    top: 0 !important;
+    left: 0 !important;
+    height: 16px;
+    width: 16px;
+  }
+}
+.mat-mdc-form-field-focus-overlay {
+  background-color: unset !important;
+}
+.mat-mdc-input-element {
+  font: inherit;
+  background: transparent;
+  color: currentColor;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+  vertical-align: bottom;
+  text-align: inherit;
+}
+.mdc-button {
+  font-size: $font-size-md !important;
+  font-weight: 500;
+}

@@ -1,0 +1,57 @@
+<div class="container m-5">
+  <div class="d-flex align-center navigation mt-5 ml-5 pl-10">
+    <span><a [routerLink]="['/', 'dashboard', 'customer']">List of Customers</a></span>
+    <mat-icon class="mr-10 mt-5" aria-hidden="false">keyboard_arrow_right</mat-icon>
+    <span>Customer detail</span>
+  </div>
+  <!-- ...........................................................contact details......................................... -->
+  <div class="d-flex ml-10 mr-10 mb-10 box-container">
+    <div class="w-25 customer_contact mr-10">
+      <div class="d-flex flex-column just-center align-center mt-40">
+        <mat-icon class="contact_icon">account_circle</mat-icon>
+        <p class="d-flex ph_no w-85">
+          <mat-icon class="call_icon">call</mat-icon><span class="call_number">{{ customerDetails.data.phoneNumber }}</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ............................................customer survey....................................... -->
+    <div class="w-75 customer_survey">
+      <ng-container *ngIf="customerDetails.data.surveyResponsesByCustomers.length === 0">
+        <div class="d-flex align-center just-center h-100">
+          <p class="no_survey">No any survey submit</p>
+        </div>
+      </ng-container>
+      <mat-stepper *ngIf="customerDetails.data.surveyResponsesByCustomers.length !== 0" orientation="vertical">
+        <mat-step *ngFor="let survey of customerDetails.data.surveyResponsesByCustomers">
+          <ng-template matStepLabel>
+            <mat-accordion class="d-flex mat_accordion">
+              <mat-expansion-panel (opened)="isScreenExpansionOpen = true" (closed)="isScreenExpansionOpen = false" class="expansion_panel">
+                <mat-expansion-panel-header>
+                  <mat-panel-description>
+                    <div class="d-flex align-center just-space-bet w-100">
+                      <div class="d-flex align-center w-90 expansion_panel_header">
+                        <span class="Recommendation-Type" [ngStyle]="{ 'background-color': survey.recommendationColour }">{{
+                          survey.recommendationType
+                        }}</span>
+                        <span class="ml-10"> {{ survey.surveyName }} </span>
+                      </div>
+                      <div>{{ survey.createdDate | date : "MMM d, yyyy,hh:mm aa" }} </div>
+                    </div>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="panel_desc m-15" *ngFor="let question of survey.questionsAndResponses">
+                  <p class="w-100 f-20 mt-5 mb-5">{{ question.question }}</p>
+                  <p class="w-100 f-18 mt-5 mb-5">{{ question.label }}</p>
+                  <p class="panel_desc_detail mt-5 mb-5">
+                    {{ question.response }}
+                  </p>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ng-template>
+        </mat-step>
+      </mat-stepper>
+    </div>
+  </div>
+</div>

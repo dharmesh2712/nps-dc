@@ -1,0 +1,92 @@
+<div class="common-container">
+  <div class="w-100 d-flex">
+    <div class="w-50">
+      <app-search class="w-100" (searchEvent)="searchEvent($event)"></app-search>
+    </div>
+    <button
+      matBadge="1"
+      [matBadgeHidden]="!isFilterApplied"
+      matBadgeSize="small"
+      mat-icon-button
+      color="primary"
+      (click)="openFilterModel(filtrerModel)"
+      class="ml-10 common-icon-div"
+    >
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <ng-container *ngIf="!isLoading">
+    <app-table [data]="customerList" [table]="table"></app-table>
+    <ng-container *ngIf="!customerList.length">
+      <p class="text-center mt-30">No Records Found</p>
+    </ng-container>
+    <ng-container *ngIf="customerList.length">
+      <div class="d-flex">
+        <app-pagination
+          class="w-100"
+          [pagination]="pagination"
+          [paginationConfig]="paginationConfig"
+          (changePagination)="changePagination($event)"
+        >
+        </app-pagination>
+      </div>
+    </ng-container>
+  </ng-container>
+  <div *ngIf="isLoading" class="d-flex align-items-center just-center w-100" id="loaderScreen">
+    <app-loader></app-loader>
+  </div>
+</div>
+<ng-template #filtrerModel>
+  <div class="w-100 mr-10 d-flex just-space-bet">
+    <div class="w-50">
+      <label class="common-title d-block pt-10">Category</label>
+      <mat-form-field appearance="fill" class="mt-5 input__label--disabled input__bordered w-100">
+        <mat-select [(ngModel)]="filterObject.category" placeholder="Select Category" (selectionChange)="getSurveyFromCategory()">
+          <mat-option value=""> All Category </mat-option>
+          <mat-option value="ef1e0088-b145-4b77-b3dd-6c7007d3d671">Complaint on Billing</mat-option>
+          <mat-option value="5722b843-3f1f-43fa-a130-b40ef5284898">Complaint on Churn</mat-option>
+          <mat-option value="819f265c-d900-4281-a709-b05b0d300815">Complaint on Leased Line</mat-option>
+          <mat-option value="21a4aa8b-462c-4c2d-860c-13f3b6ff962a">Technical Complaint</mat-option>
+          <mat-option value="f694969e-5604-46c3-9f7c-b28125ffe402">New Activation</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="w-50 ml-20">
+      <label class="common-title d-block pt-10">Survey</label>
+      <mat-form-field appearance="fill" class="mt-5 input__label--disabled input__bordered w-100">
+        <mat-select [(ngModel)]="filterObject.survey" placeholder="Select Survey">
+          <mat-option value=""> All Survey </mat-option>
+          <ng-container *ngFor="let survey of surveyList">
+            <mat-option [value]="survey.surveyId">{{ survey.surveyName }}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="w-100 mr-10 d-flex just-space-bet mt-10">
+    <div class="w-50">
+      <label class="common-title d-block pt-10">Customer Type</label>
+      <mat-form-field appearance="fill" class="mt-5 input__label--disabled input__bordered w-100">
+        <mat-select [(ngModel)]="filterObject.status" placeholder="Select Customer Type">
+          <mat-option value="Promoter"> Promoter </mat-option>
+          <mat-option value="Passive">Passive</mat-option>
+          <mat-option value="Detractor">Detractor</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="w-50 ml-20">
+      <label class="common-title d-block pt-10">Timely Response Customer </label>
+      <mat-form-field appearance="fill" class="mt-5 input__label--disabled input__bordered w-100">
+        <mat-select [(ngModel)]="filterObject.timelyResponse">
+          <mat-option value=""> All Customer </mat-option>
+          <mat-option value="yes">Yes</mat-option>
+          <mat-option value="no">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-dialog-actions align="end" class="mt-10">
+    <button mat-stroked-button color="accent" class="common-button-secondary" (click)="clearFilter()"> Reset </button>
+    <button mat-flat-button color="primary" class="common-button ml-10" (click)="applyFilter()"> Apply </button>
+  </mat-dialog-actions>
+</ng-template>

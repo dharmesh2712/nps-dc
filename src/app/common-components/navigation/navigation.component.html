@@ -1,0 +1,30 @@
+<div class="d-flex just-space-bet">
+  <nav aria-label="breadcrumb" class="mb-20">
+    <ol class="breadcrumb">
+      <!--Navigation Custom-->
+      <ng-container *ngIf="navigation.isCustom">
+        <li
+          class="breadcrumb-item"
+          *ngFor="let nav of navigation.navigation; index as nIndex"
+          [ngClass]="{
+            active: nIndex === navigation.navigation.length - 1
+          }"
+        >
+          <a (click)="ChangeNavigation(nIndex)">{{ nav.name }}</a>
+        </li>
+        <li class="breadcrumb-item active" *ngIf="current !== ''">
+          <a><img *ngIf="icon" [src]="icon" height="40" />{{ current }}</a>
+        </li>
+      </ng-container>
+      <!--Navigation Link-->
+      <ng-container *ngIf="!navigation.isCustom">
+        <li class="breadcrumb-item" *ngFor="let nav of navigation.navigation">
+          <a [routerLink]="nav.navigation" [queryParams]="nav.queryParams">{{ nav.name }}</a>
+        </li>
+        <li class="breadcrumb-item active">
+          <a>{{ current }}</a>
+        </li>
+      </ng-container>
+    </ol>
+  </nav>
+</div>

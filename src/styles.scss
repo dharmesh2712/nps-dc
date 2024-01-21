@@ -1,0 +1,292 @@
+@use "@angular/material" as mat;
+@use "@material/switch/switch" as mdc-switch;
+@use "@material/switch/switch-theme" as mdc-switch-theme;
+@include mat.core();
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,500,600&display=swap");
+@import "styles/color-palette.scss";
+
+* {
+  font-family: $global-font-family;
+  box-sizing: border-box;
+  outline: none;
+}
+
+:root {
+  --primaryColor: #f56d23;
+  --secondaryColor: #002f51;
+  --titleAndLeftSidebarColor: #002f51;
+  --graphFontColor: #c6c6c6;
+  --loaderColor: #000000;
+}
+
+$custom-primary: (
+  50: $primary-color,
+  100: $primary-color,
+  200: $primary-color,
+  300: $primary-color,
+  400: $primary-color,
+  500: $primary-color,
+  600: $primary-color,
+  700: $primary-color,
+  800: $primary-color,
+  900: $primary-color,
+  A100: $primary-color,
+  A200: $primary-color,
+  A400: $primary-color,
+  A700: $primary-color,
+  contrast: (),
+);
+$custom-accent: (
+  50: $secondary-color,
+  100: $secondary-color,
+  200: $secondary-color,
+  300: $secondary-color,
+  400: $secondary-color,
+  500: $secondary-color,
+  600: $secondary-color,
+  700: $secondary-color,
+  800: $secondary-color,
+  900: $secondary-color,
+  A100: $secondary-color,
+  A200: $secondary-color,
+  A400: $secondary-color,
+  A700: $secondary-color,
+  contrast: (),
+);
+$custom-warn: (
+  50: $danger-color,
+  100: $danger-color,
+  200: $danger-color,
+  300: $danger-color,
+  400: $danger-color,
+  500: $danger-color,
+  600: $danger-color,
+  700: $danger-color,
+  800: $danger-color,
+  900: $danger-color,
+  A100: $danger-color,
+  A200: $danger-color,
+  A400: $danger-color,
+  A700: $danger-color,
+  contrast: (),
+);
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$nps-panel-primary: mat.define-palette($custom-primary);
+$nps-panel-accent: mat.define-palette($custom-accent);
+
+// The warn palette is optional (defaults to red).
+$nps-panel-warn: mat.define-palette($custom-warn);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$nps-panel-theme: mat.define-light-theme(
+  $nps-panel-primary,
+  $nps-panel-accent,
+  $nps-panel-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($nps-panel-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@import "./styles/helper";
+@import "./styles/common-theme.scss";
+@import "./styles/mat-override";
+@import "./styles/common-theme.scss";
+
+a {
+  color: $secondary-color;
+  text-decoration: none;
+}
+.mat-mdc-slide-toggle {
+  .mdc-switch {
+    @include mdc-switch-theme.theme(
+      (
+        //handle color
+        selected-handle-color: $white,
+        selected-focus-handle-color: $white,
+        selected-hover-handle-color: $white,
+        selected-pressed-handle-color: $white,
+        unselected-handle-color: $white,
+        unselected-focus-handle-color: $white,
+        unselected-hover-handle-color: $white,
+        unselected-pressed-handle-color: $white,
+        //tracks color
+        selected-track-color: $primary-color,
+        selected-focus-track-color: $primary-color,
+        selected-hover-track-color: $primary-color,
+        unselected-track-color: $grey-primary,
+        unselected-focus-track-color: $grey-primary,
+        unselected-hover-track-color: $grey-primary,
+        unselected-pressed-track-color: $grey-primary
+      )
+    );
+  }
+}
+.custom-datetime {
+  min-width: 100% !important;
+  font-size: 10px !important;
+}
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.lds-ring-simple div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 51px;
+  height: 51px;
+  margin: 6px;
+  border: 6px solid $primary-color;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: $primary-color transparent transparent transparent;
+}
+
+.lds-ring-main div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 51px;
+  height: 51px;
+  margin: 6px;
+  border: 6px solid var(--loaderColor);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: var(--loaderColor) transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+label {
+  margin-bottom: 0px;
+  font-weight: normal;
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 20px;
+  margin: 5px;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: $primary-color;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+::ng-deep {
+  .mat-stepper-vertical-line::before {
+    border-left-width: 0 !important;
+  }
+}
+
+#loaderScreen {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  background-color: $background-primary-color;
+  height: calc(100vh - 135px);
+  -webkit-animation-duration: 0.9s;
+  animation-duration: 0.9s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}

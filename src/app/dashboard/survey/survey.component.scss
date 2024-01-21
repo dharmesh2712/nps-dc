@@ -1,0 +1,12 @@
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+.copy-json-area {
+  textarea {
+    resize: none;
+    border: none;
+    height: 30vh;
+    max-height: 50vh;
+    overflow-y: scroll;
+  }
+}

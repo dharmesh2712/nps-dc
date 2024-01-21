@@ -1,0 +1,64 @@
+<div class="mt-20 main-table">
+  <table class="custom-table w-100">
+    <thead class="table-header">
+      <tr class="table-header">
+        <th *ngFor="let row of table.rows" [width]="row.width + '%'">
+          <div class="d-flex">
+            {{ row.name }}
+          </div>
+        </th>
+        <th *ngIf="table.actions.length > 0">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let rule of data; let dIndex = index"
+        class="table-column"
+        height="40px"
+        [ngClass]="{ 'table-column-gray': table.isGray }"
+      >
+        <td
+          *ngFor="let row of table.rows; index as rIndex"
+          class="column ellipsis"
+          [width]="row.width + '%'"
+          (click)="openNavigation(rule.id, dIndex)"
+          [ngClass]="{
+            'table-column-cell': rIndex === 0,
+            'table-column-cell-last': rIndex === data.length - 1,
+            'c-p': table.navigation && table.navigation.length > 0
+          }"
+        >
+          <span *ngIf="row.type === 'text'">
+            {{ rule[row.value] !== undefined ? rule[row.value] : "N/A" }}
+          </span>
+          <span *ngIf="row.type === 'date'">{{ rule[row.value] !== undefined ? (rule[row.value] | date : "mediumDate") : "N/A" }}</span>
+          <ng-container *ngIf="row.type === 'statusWithName'">
+            <div class="status-div d-flex align-center just-center" [ngClass]="statusColors[rule[row.value]]">
+              {{ statusColors[rule[row.value]] | titlecase }}
+            </div>
+          </ng-container>
+          <span *ngIf="row.type === 'status'">
+            <div
+              class="status-tag"
+              [ngStyle]="{ backgroundColor: statusColor[rule[row.value]] }"
+              [ngClass]="{ black: statusColor[rule[row.value]] === '#E7ECF2' }"
+            >
+              {{ rule[row.value] !== undefined ? rule[row.value] : "N/A" }}
+            </div>
+          </span>
+        </td>
+        <td class="table-action-cell" *ngIf="table.actions.length > 0">
+          <button mat-icon-button [matMenuTriggerFor]="menu" (click)="menuClick(rule.surveyStatus)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngFor="let action of table.actions" (click)="performAction(action.type, dIndex)">
+              <mat-icon>{{ action.icon }}</mat-icon>
+              <span>{{ action.name }}</span>
+            </button>
+          </mat-menu>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,52 @@
+<div class="h-100 d-flex">
+  <div id="menu-effect">
+    <img id="logo" src="../../assets/images/smartflo.png" alt="logo" height="45" width="45" />
+    <!-- LEFT-SIDEBAR-MENU | START -->
+    <div class="icon-set">
+      <ng-container *ngFor="let setting of settings">
+        <a *ngIf="setting.isEnabled" #link [routerLink]="setting.routerLink" routerLinkActive="icon-selected">
+          <div class="icon-class d-flex align-center just-center c-p" matTooltipPosition="right">
+            <mat-icon>{{ setting.icon }}</mat-icon>
+            <ng-container *ngIf="setting.image">
+              <div *ngIf="link.classList.contains('icon-selected')" class="selected-bot"> </div>
+              <img *ngIf="!link.classList.contains('icon-selected')" [src]="'assets/images/' + setting.image + '.svg'" alt="menu-item" />
+            </ng-container>
+          </div>
+        </a>
+      </ng-container>
+    </div>
+    <!-- LEFT-SIDEBAR-MENU | END -->
+  </div>
+  <div class="main-right-div">
+    <div class="header">
+      <div class="header-title" id="module-title">
+        {{ currentTab }}
+      </div>
+      <div class="header-right">
+        <mat-toolbar class="header--main cursor-pointer">
+          <div
+            (click)="toggleMenu()"
+            id="header"
+            (clickOutside)="isMenuToggle = false"
+            class="d-flex align-center just-space-bet c-p h-100"
+          >
+            <div class="header--initial d-flex just-center align-center">
+              <span>{{ initialLetter | uppercase }}</span>
+            </div>
+            <mat-icon [ngClass]="{ 'rotate-icon': isMenuToggle }" class="drop-arrow">arrow_drop_down </mat-icon>
+          </div>
+        </mat-toolbar>
+        <app-header-dropdown
+          *ngIf="isMenuToggle"
+          (closeModal)="isMenuToggle = false"
+          (menuClick)="handleMenuClick($event)"
+        ></app-header-dropdown>
+      </div>
+    </div>
+
+    <div class="dashboard">
+      <ng-container *ngIf="isLoading"> </ng-container>
+      <ng-container *ngIf="!isLoading"> <router-outlet></router-outlet> </ng-container>
+    </div>
+  </div>
+</div>

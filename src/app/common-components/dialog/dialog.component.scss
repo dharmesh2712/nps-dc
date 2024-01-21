@@ -1,0 +1,44 @@
+@import "../../../styles/color-palette.scss";
+
+.dialog-main-container {
+  .dialog-header {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    justify-content: space-between;
+    border-bottom: 1.5px solid $grey-border;
+    .header-title {
+      color: $primary-color;
+      font-size: 24px;
+      font-weight: 700;
+      padding-bottom: 5px;
+    }
+    .header-close {
+      cursor: pointer;
+      font-size: 32px;
+      height: 32px;
+      width: 32px;
+      color: $grey-primary;
+    }
+  }
+  .dialog-body {
+    margin-top: 10px;
+  }
+}
+//Delete Modal
+.delete-header {
+  font-size: 26px;
+  color: $font-color-dark;
+  font-weight: 600;
+}
+.delete-text {
+  font-size: 18px;
+  color: $font-color-dark;
+  font-weight: 500;
+}
+.list-delete {
+  max-height: 200px;
+  overflow: auto;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
